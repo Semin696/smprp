@@ -2,6 +2,7 @@ package io.th0rgal.oraxen.pack.upload;
 
 import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.configs.Settings;
+import io.th0rgal.oraxen.pack.upload.hosts.GitHubHostingProvider;
 import io.th0rgal.oraxen.pack.upload.hosts.HostingProvider;
 import io.th0rgal.oraxen.pack.upload.hosts.Lobfile;
 import io.th0rgal.oraxen.pack.upload.hosts.Polymath;
@@ -35,6 +36,15 @@ public final class HostingProviderFactory {
     public static HostingProvider createHostingProvider(boolean allowSelfHost) {
         HostingProvider provider = switch (Settings.UPLOAD_TYPE.toString().toLowerCase(Locale.ROOT)) {
             case "polymath" -> new Polymath(Settings.POLYMATH_SERVER.toString());
+            case "github" -> {
+                ConfigurationSection githubConfig = OraxenPlugin.get().getConfigsManager().getSettings()
+                        .getConfigurationSection("Pack.upload.github");
+                if (githubConfig == null) {
+                    Logs.logError("Missing config section 'Pack.upload.github', falling back to Polymath");
+                    yield new Polymath(Settings.POLYMATH_SERVER.toString());
+                }
+                yield new GitHubHostingProvider(githubConfig);
+            }
             case "lobfile" -> {
                 ConfigurationSection lobfileConfig = OraxenPlugin.get().getConfigsManager().getSettings()
                         .getConfigurationSection("Pack.upload.lobfile");

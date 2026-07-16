@@ -111,7 +111,7 @@ Pack:
     #
     # Requirements:
     # - ViaVersion OR ProtocolSupport plugin for version detection (without these, all players get server version pack)
-    # - Upload type must be "lobfile", "polymath", or "external" (NOT "self-host" - can only serve one file)
+    # - Upload type must be "lobfile", "polymath", "github", or "external" (NOT "self-host" - can only serve one file)
     #
     # How it works:
     # - On player join, detects their client version via ViaVersion/ProtocolSupport API
@@ -201,7 +201,7 @@ Pack:
 
   upload:
     enabled: true
-    type: polymath #lobfile, polymath, self-host, or external
+    type: polymath #lobfile, polymath, self-host, github, or external
     polymath:
       server: atlas.oraxen.com # you can also host your own polymath instance
       secret: "oraxen" # change this if you host your own polymath to limit access to resource pack uploading
@@ -212,6 +212,11 @@ Pack:
       host: "0.0.0.0" # The IP address to bind the HTTP server to (0.0.0.0 = listen on all interfaces)
       port: 8080 # The port the HTTP server will listen on
       domain: "localhost:8080" # The domain/IP:port that players will use to download the pack (e.g., "my-server.com:8080" or "192.168.1.100:8080")
+    github:
+      repo: "Semin696/smprp" # GitHub repository in owner/repo format
+      token: "" # GitHub Personal Access Token with repo permissions
+    options:
+      class: "" # Full class name for external hosting provider
 
   dispatch:
     send_pre_join: false # Pre-join dispatch (Paper 1.21.7+). Takes priority over send_on_join when supported. Requires explicit opt-in.
