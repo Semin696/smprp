@@ -1,5 +1,5 @@
 name: mainplug
-version: '${version}'
+version: '1.0'
 main: org.nig.smp.SDSPlugin
 api-version: '1.21'
 load: POSTWORLD
@@ -7,6 +7,7 @@ softdepend:
   - PlaceholderAPI
   - LuckPerms
   - AuctionPlugin
+  - Oraxen
 
 commands:
   restart_server:
@@ -101,6 +102,10 @@ commands:
     description: Магазин предметов
     usage: /market
     permission: market.use
+  resourcepack:
+    description: Управление ресурспаком
+    usage: /resourcepack <build|info|send>
+    permission: resourcepack.admin
 permissions:
   autorestart.restart:
     description: Право на перезапуск сервера
@@ -178,3 +183,7 @@ permissions:
   market.use:
     description: Использовать /market
     default: true
+  resourcepack.admin:
+    description: Управление ресурспаком
+    default: op
+

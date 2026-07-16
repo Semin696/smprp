@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.nig.smp.autorestart.AutoRestart;
 import org.nig.smp.spawn.Spawn;
-import org.nig.smp.pvp.CombatManager;
 import org.nig.smp.pvp.Pvp;
 import org.nig.smp.order.Order;
 import org.nig.smp.moneys.Moneys;
@@ -23,8 +22,6 @@ import org.nig.smp.ah.Ah;
 import org.nig.smp.admin.HealFeedCommand;
 import org.nig.smp.voice.VoiceChatTracker;
 import org.nig.smp.market.Market;
-import org.nig.smp.resourcepack.ResourcePack;
-import org.nig.smp.oraxen.OraxenModule;
 
 import java.io.File;
 import java.io.InputStream;
@@ -41,7 +38,6 @@ public final class SDSPlugin extends JavaPlugin {
     private HomeSev homeSevModule;
     private Pvp pvpModule;
     private VoiceChatTracker voiceChatTracker;
-    private OraxenModule oraxenModule;
 
     @Override
     public void onEnable() {
@@ -158,14 +154,6 @@ public final class SDSPlugin extends JavaPlugin {
         });
         initModule("Market", () -> {
             Market module = new Market(this);
-            module.init();
-        });
-        initModule("OraxenModule", () -> {
-            oraxenModule = new OraxenModule(this);
-            oraxenModule.init();
-        });
-        initModule("ResourcePack", () -> {
-            ResourcePack module = new ResourcePack(this, oraxenModule);
             module.init();
         });
     }
