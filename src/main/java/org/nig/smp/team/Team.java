@@ -1,9 +1,6 @@
 package org.nig.smp.team;
 
-import org.bukkit.Bukkit;
 import org.nig.smp.SDSPlugin;
-
-import java.util.Objects;
 
 public class Team {
 
@@ -24,7 +21,6 @@ public class Team {
             cmd.setTabCompleter(executor);
         }
 
-        Bukkit.getPluginManager().registerEvents(new FriendlyFireListener(teamManager), plugin);
     }
 
     public void shutdown() {
