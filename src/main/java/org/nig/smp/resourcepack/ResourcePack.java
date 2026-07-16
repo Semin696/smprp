@@ -270,6 +270,11 @@ public class ResourcePack implements Listener {
         return packHash;
     }
 
+    public void reload() {
+        loadConfig();
+        plugin.getLogger().info("ResourcePack config reloaded");
+    }
+
     public SDSPlugin getPlugin() {
         return plugin;
     }

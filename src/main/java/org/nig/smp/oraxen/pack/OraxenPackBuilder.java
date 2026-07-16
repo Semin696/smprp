@@ -185,16 +185,44 @@ public class OraxenPackBuilder {
     }
 
     private void collectPackFiles() throws IOException {
-        collectDirectory(packFolder, "");
+        File[] entries = packFolder.listFiles();
+        if (entries == null) return;
+
+        for (File entry : entries) {
+            String name = entry.getName();
+            if (name.equals("pack.zip") || name.equals("uploads") || name.equals("__MACOSX")) continue;
+
+            if (entry.isFile()) {
+                byte[] bytes = Files.readAllBytes(entry.toPath());
+                VirtualFile vf = new VirtualFile("", name, new ByteArrayInputStream(bytes));
+                files.add(vf);
+            } else {
+                String targetPrefix = mapToAssetPath(name);
+                collectDirectory(entry, targetPrefix);
+            }
+        }
     }
 
-    private void collectDirectory(File dir, String basePath) throws IOException {
+    private String mapToAssetPath(String name) {
+        return switch (name) {
+            case "font" -> "assets/minecraft/font";
+            case "lang" -> "assets/minecraft/lang";
+            case "models" -> "assets/minecraft/models/item";
+            case "textures" -> "assets/oraxen/textures/item";
+            case "sounds" -> "assets/minecraft/sounds";
+            default -> "assets/minecraft/" + name;
+        };
+    }
+
+    private void collectDirectory(File dir, String zipPrefix) throws IOException {
         File[] entries = dir.listFiles();
         if (entries == null) return;
 
         for (File entry : entries) {
-            String entryPath = basePath.isEmpty() ? entry.getName() : basePath + "/" + entry.getName();
-            if (entry.getName().equals("pack.zip") || entry.getName().equals("uploads") || entry.getName().equals("__MACOSX")) continue;
+            String entryName = entry.getName();
+            if (entryName.equals("pack.zip") || entryName.equals("uploads") || entryName.equals("__MACOSX")) continue;
+
+            String entryPath = zipPrefix.isEmpty() ? entryName : zipPrefix + "/" + entryName;
 
             if (entry.isDirectory()) {
                 collectDirectory(entry, entryPath);
@@ -203,7 +231,7 @@ public class OraxenPackBuilder {
                 String parent = new File(entryPath).getParent();
                 VirtualFile vf = new VirtualFile(
                     parent != null ? parent.replace("\\", "/") : "",
-                    entry.getName(),
+                    entryName,
                     new ByteArrayInputStream(bytes)
                 );
                 files.add(vf);

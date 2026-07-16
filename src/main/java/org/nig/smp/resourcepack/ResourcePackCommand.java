@@ -53,6 +53,10 @@ public class ResourcePackCommand implements CommandExecutor, TabCompleter {
                 resourcePack.sendToAll();
                 sender.sendMessage(SDSPlugin.color("&aРесурспак отправлен всем игрокам"));
             }
+            case "reload" -> {
+                resourcePack.reload();
+                sender.sendMessage(SDSPlugin.color("&aКонфиг ресурспака перезагружен"));
+            }
             default -> sendHelp(sender);
         }
 
@@ -63,6 +67,7 @@ public class ResourcePackCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(SDSPlugin.color("&6/resourcepack build &7- собрать, загрузить на GitHub и отправить всем игрокам"));
         sender.sendMessage(SDSPlugin.color("&6/resourcepack info &7- информация о ресурспаке"));
         sender.sendMessage(SDSPlugin.color("&6/resourcepack send &7- отправить текущий ресурспак всем игрокам"));
+        sender.sendMessage(SDSPlugin.color("&6/resourcepack reload &7- перезагрузить конфиг"));
     }
 
     @Override
@@ -70,7 +75,7 @@ public class ResourcePackCommand implements CommandExecutor, TabCompleter {
         if (!sender.hasPermission("resourcepack.admin")) return List.of();
 
         if (args.length == 1) {
-            return Stream.of("build", "info", "send")
+            return Stream.of("build", "info", "send", "reload")
                     .filter(s -> s.startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         }

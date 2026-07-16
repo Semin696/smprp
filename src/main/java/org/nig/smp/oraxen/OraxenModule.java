@@ -49,7 +49,8 @@ public class OraxenModule {
             File mcmeta = new File(packDir, "pack.mcmeta");
             if (!mcmeta.exists()) {
                 try (OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(mcmeta), StandardCharsets.UTF_8)) {
-                    w.write("{\n  \"pack\": {\n    \"pack_format\": 75,\n    \"description\": \"SDS Resource Pack\"\n  }\n}\n");
+                    int pf = getPackFormat();
+                    w.write("{\n  \"pack\": {\n    \"pack_format\": " + pf + ",\n    \"description\": \"SDS Resource Pack\"\n  }\n}\n");
                 }
             }
 
@@ -74,6 +75,24 @@ public class OraxenModule {
             plugin.getLogger().info("Default Oraxen structure created at " + root.getAbsolutePath());
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to create Oraxen structure: " + e.getMessage());
+        }
+    }
+
+    private int getPackFormat() {
+        try {
+            String ver = Bukkit.getMinecraftVersion();
+            String[] parts = ver.split("\\.");
+            int minor = Integer.parseInt(parts[1]);
+            int patch = parts.length > 2 ? Integer.parseInt(parts[2]) : 0;
+            if (minor < 17) return 7;
+            if (minor == 17) return patch == 0 ? 7 : 8;
+            if (minor == 18) return patch == 0 ? 8 : 9;
+            if (minor == 19) return patch <= 2 ? 9 : 12;
+            if (minor == 20) return patch <= 3 ? 15 : patch == 4 ? 18 : patch == 5 ? 32 : 34;
+            if (minor == 21) return patch == 1 ? 34 : patch <= 4 ? 46 : 75;
+            return 75;
+        } catch (Exception e) {
+            return 75;
         }
     }
 

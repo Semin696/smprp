@@ -1,0 +1,189 @@
+name: mainplug
+version: '1.0'
+main: org.nig.smp.SDSPlugin
+api-version: '1.21'
+load: POSTWORLD
+softdepend:
+  - PlaceholderAPI
+  - LuckPerms
+  - AuctionPlugin
+  - Oraxen
+
+commands:
+  restart_server:
+    description: Технический рестарт сервера
+    usage: /restart_server
+    permission: autorestart.restart
+  setspawn:
+    description: Set the spawn location
+    usage: /setspawn
+    permission: spawn.setspawn
+  spawn:
+    description: Teleport to spawn
+    usage: /spawn
+    permission: spawn.spawn
+  mainplug:
+    description: \u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u043B\u0430\u0433\u0438\u043D\u043E\u043C
+    usage: /mainplug reload
+    permission: mainplug.reload
+  tpa:
+    description: Send teleport request to a player
+    usage: /tpa <player>
+  tpahere:
+    description: Ask a player to teleport to you
+    usage: /tpahere <player>
+  tpaccept:
+    description: Accept a teleport request
+    usage: /tpaccept
+  tpadeny:
+    description: Deny a teleport request
+    usage: /tpadeny
+  order:
+    description: Система ордеров (заказов)
+    usage: /order <предмет> [количество]
+    aliases: [orders]
+  balance:
+    description: Проверить баланс
+    usage: /balance [игрок]
+    aliases: [bal]
+    permission: moneys.balance
+  money:
+    description: Управление деньгами
+    usage: /money <give|set|take|reset>
+    permission: moneys.money.give
+  team:
+    description: Управление командами/кланами
+    usage: /team <subcommand>
+  sethome:
+    description: Save a home location
+    usage: /sethome <name>
+    permission: homesev.sethome
+  home:
+    description: Teleport to a saved home
+    usage: /home [name]
+    permission: homesev.home
+  delhome:
+    description: Delete a saved home
+    usage: /delhome <name>
+    permission: homesev.delhome
+  startsezon:
+    description: Запустить сезон с таймером
+    usage: /startsezon <время> [время_начала]
+    permission: season.admin
+  stopstartsezon:
+    description: Остановить запланированный или активный таймер сезона
+    usage: /stopstartsezon
+    permission: season.admin
+  sell:
+    description: Открыть меню продажи предметов
+    usage: /sell [all]
+    permission: sell.use
+  safezone:
+    description: Управление защищёнными зонами
+    usage: /safezone <create|remove|list>
+    permission: safezone.admin
+  sub:
+    description: Управление подписками
+    usage: /sub <give|remove>
+    permission: sub.admin
+  ah:
+    description: Аукцион
+    usage: /ah <sell|buy|cancel|list|browse>
+    permission: ah.use
+  heal:
+    description: Восстановить здоровье
+    usage: /heal [игрок|*]
+    permission: admin.heal
+  feed:
+    description: Восстановить сытость
+    usage: /feed [игрок|*]
+    permission: admin.feed
+  market:
+    description: Магазин предметов
+    usage: /market
+    permission: market.use
+  resourcepack:
+    description: Управление ресурспаком
+    usage: /resourcepack <build|info|send>
+    permission: resourcepack.admin
+permissions:
+  autorestart.restart:
+    description: Право на перезапуск сервера
+    default: op
+  spawn.setspawn:
+    description: Allows using /setspawn
+    default: op
+  spawn.spawn:
+    description: Allows using /spawn
+    default: true
+  mainplug.reload:
+    description: \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u0432\u0441\u0435\u0445 \u043C\u043E\u0434\u0443\u043B\u0435\u0439
+    default: op
+  moneys.*:
+    description: Все права moneys
+    default: op
+    children:
+      moneys.balance: true
+      moneys.balance.others: true
+      moneys.money.give: true
+  moneys.balance:
+    description: Использовать /balance
+    default: true
+  moneys.balance.others:
+    description: Смотреть баланс других игроков через /balance <ник>
+    default: true
+  moneys.money.give:
+    description: Использовать /money give
+    default: op
+  team.info.members:
+    description: Просмотр состава команды
+    default: true
+  homesev.sethome:
+    description: Allows using /sethome
+    default: true
+  homesev.home:
+    description: Allows using /home
+    default: true
+  homesev.delhome:
+    description: Allows using /delhome
+    default: true
+  homesev.limit.*:
+    description: Все права на лимит домов — используйте homesev.limit.<число>
+    default: op
+  season.admin:
+    description: Управление сезонами
+    default: op
+  sell.use:
+    description: Использовать /sell
+    default: true
+  safezone.admin:
+    description: Управление защищёнными зонами (деревянная мотыга + команда)
+    default: op
+  safezone.bypass:
+    description: Игнорировать защиту зон (ломать блоки)
+    default: op
+  sub.admin:
+    description: Управление подписками
+    default: op
+  ah.use:
+    description: Использовать аукцион
+    default: true
+  ah.admin:
+    description: Управление аукционом (отмена любых лотов)
+    default: op
+  ah.limit.*:
+    description: Все права на лимит лотов — используйте ah.limit.<число>
+    default: op
+  admin.heal:
+    description: Использовать /heal
+    default: op
+  admin.feed:
+    description: Использовать /feed
+    default: op
+  market.use:
+    description: Использовать /market
+    default: true
+  resourcepack.admin:
+    description: Управление ресурспаком
+    default: op
+
