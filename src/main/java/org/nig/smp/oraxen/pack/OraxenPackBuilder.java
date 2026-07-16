@@ -66,6 +66,7 @@ public class OraxenPackBuilder {
             for (String key : config.getKeys(false)) {
                 if (!config.isConfigurationSection(key)) continue;
                 if (!config.contains(key + ".Pack")) continue;
+                if (!config.getBoolean(key + ".Pack.generate_model", true)) continue;
 
                 String modelName = config.getString(key + ".Pack.model", key.toLowerCase());
                 String parent = config.getString(key + ".Pack.parent_model", "item/generated");
@@ -229,17 +230,28 @@ public class OraxenPackBuilder {
             } else {
                 byte[] bytes = Files.readAllBytes(entry.toPath());
                 String parent = new File(entryPath).getParent();
-                VirtualFile vf = new VirtualFile(
-                    parent != null ? parent.replace("\\", "/") : "",
-                    entryName,
-                    new ByteArrayInputStream(bytes)
-                );
-                files.add(vf);
+                String fullPath = (parent != null ? parent.replace("\\", "/") + "/" : "") + entryName;
+                boolean dup = false;
+                for (VirtualFile f : files) {
+                    if (f.getPath().equals(fullPath)) { dup = true; break; }
+                }
+                if (!dup) {
+                    VirtualFile vf = new VirtualFile(
+                        parent != null ? parent.replace("\\", "/") : "",
+                        entryName,
+                        new ByteArrayInputStream(bytes)
+                    );
+                    files.add(vf);
+                }
             }
         }
     }
 
     private void addFile(String path, String name, String content) {
+        String fullPath = path.isEmpty() ? name : path + "/" + name;
+        for (VirtualFile f : files) {
+            if (f.getPath().equals(fullPath)) return;
+        }
         VirtualFile vf = new VirtualFile(path, name, new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
         files.add(vf);
     }
