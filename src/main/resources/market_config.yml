@@ -1,0 +1,70 @@
+# ═══════════════════════════════════════════════════════════
+#   Market — магазин предметов
+#   Покупка любых предметов за внутриигровую валюту
+#   Цены рандомные и обновляются каждые 10 минут
+# ═══════════════════════════════════════════════════════════
+
+prefix: "&#65FFAE&lm&#57F574&lc&#48EA3A&lr&#3AE000&lu"
+
+# ═══════════════════════════════════════════════════════════
+#   Тиры предметов (по возрастанию цены):
+#     Обычный → Редкий → Эпический → Легендарный
+# ═══════════════════════════════════════════════════════════
+
+# Диапазон цен для обычных предметов (Common)
+common-min-price: 50.0
+common-max-price: 300.0
+
+# Диапазон цен для редких предметов (Rare)
+rare-min-price: 300.0
+rare-max-price: 2000.0
+
+# Диапазон цен для эпических предметов (Epic)
+epic-min-price: 2000.0
+epic-max-price: 8000.0
+
+# Диапазон цен для легендарных предметов (Legendary)
+legendary-min-price: 8000.0
+legendary-max-price: 30000.0
+
+# Выключенные предметы (не будут отображаться)
+disabled-items:
+  - "POTION"
+  - "LINGERING_POTION"
+  - "SPLASH_POTION"
+  - "TIPPED_ARROW"
+  - "DRAGON_EGG"
+  - "COMMAND_BLOCK"
+  - "CHAIN_COMMAND_BLOCK"
+  - "REPEATING_COMMAND_BLOCK"
+  - "COMMAND_BLOCK_MINECART"
+  - "BARRIER"
+  - "STRUCTURE_BLOCK"
+  - "STRUCTURE_VOID"
+  - "JIGSAW"
+  - "DEBUG_STICK"
+  - "KNOWLEDGE_BOOK"
+  - "BEDROCK"
+  - "END_PORTAL_FRAME"
+  - "END_GATEWAY"
+  - "END_PORTAL"
+  - "SPAWNER"
+  - "TRIAL_SPAWNER"
+  - "VAULT"
+  - "LIGHT"
+  - "BUDDING_AMETHYST"
+  - "REINFORCED_DEEPSLATE"
+  - "PETRIFIED_OAK_SLAB"
+  - "FARMLAND"
+  - "DIRT_PATH"
+  - "FROSTED_ICE"
+  - "BUBBLE_COLUMN"
+  - "POWDER_SNOW"
+  - "PLAYER_HEAD"
+  - "PLAYER_WALL_HEAD"
+
+messages:
+  bought: "&aКуплен &f%item% &aза &6%price% ₽"
+  no-money: "&cНедостаточно средств! Нужно: &6%price% ₽"
+  no-permission: "&cУ вас нет прав на эту команду"
+  gui-title: "&6&lМАРКЕТ &8| &7%category%"

@@ -1,0 +1,76 @@
+# ═══════════════════════════════════════════════════════════
+#   Moneys — экономика и награды за мобов
+# ═══════════════════════════════════════════════════════════
+
+# Стартовый баланс для новых игроков
+default-balance: 100.0
+
+# Категории мобов и награды за их убийство
+mob-categories:
+  # Боссы — самые редкие и опасные
+  bosses:
+    min: 20.0
+    max: 100.0
+    mobs:
+      - WARDEN
+      - WITHER
+      - ENDER_DRAGON
+      - ELDER_GUARDIAN
+  # Враждебные мобы
+  hostile:
+    min: 10.0
+    max: 15.0
+    mobs:
+      - ZOMBIE
+      - SKELETON
+      - CREEPER
+      - SPIDER
+      - ENDERMAN
+      - BLAZE
+      - WITHER_SKELETON
+      - PIGLIN
+      - WITCH
+      - VINDICATOR
+      - EVOKER
+      - RAVAGER
+      - PILLAGER
+      - GUARDIAN
+      - SLIME
+      - MAGMA_CUBE
+      - GHAST
+      - PHANTOM
+      - DROWNED
+      - HUSK
+      - STRAY
+      - CAVE_SPIDER
+      - SHULKER
+      - BREEZE
+  # Мирные мобы
+  peaceful:
+    min: 1.0
+    max: 10.0
+    mobs:
+      - COW
+      - PIG
+      - SHEEP
+      - CHICKEN
+      - RABBIT
+      - FOX
+      - WOLF
+      - CAT
+      - HORSE
+      - DONKEY
+      - MULE
+      - LLAMA
+      - PARROT
+      - BEE
+      - GOAT
+      - FROG
+      - AXOLOTL
+      - TURTLE
+      - DOLPHIN
+      - SQUID
+      - GLOW_SQUID
+      - SNIFFER
+      - CAMEL
+      - ARMADILLO
